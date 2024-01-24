@@ -1,0 +1,1466 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Popularity Roommate Diversity Problem</title>
+
+  <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+  <meta name="author" content="Hakim El Hattab">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="libs/reveal.js/4.3.1/reset.css">
+  <link rel="stylesheet" href="libs/reveal.js/4.3.1/reveal.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <!-- highlight Theme -->
+  
+  <link rel="stylesheet" href="libs/highlight.js/11.3.1/styles/monokai.min.css">
+  
+	
+		
+	<link rel="stylesheet" href="libs/reveal.js/4.3.1/plugin/chalkboard/style.css">
+	
+	
+	
+  <link rel="stylesheet" href="libs/reveal.js/4.3.1/plugin/customcontrols/style.css">
+  
+	
+
+
+
+  <!-- Revealjs Theme -->
+  
+  <link rel="stylesheet" href="libs/reveal.js/4.3.1/theme/simple.css" id="theme">
+  
+  
+
+  <link rel="stylesheet" href="libs/styles/tasklist.css">
+	<link rel="stylesheet" href="libs/styles/iota.css">
+	<link rel="stylesheet" href="libs/styles/layout.css">
+
+
+  <!-- Revealjs Theme -->
+  
+  <link rel="stylesheet" href="reveal-override.css">
+  
+
+   <!-- css list -->
+	
+
+   
+
+</head>
+
+<body>
+
+   
+    <div id="logo" style="position: fixed; top: 20px; left: 20px; z-index: 1; height:3rem;">
+        <img src="images/logo.svg" style="height:100%"/>
+    </div>
+
+
+  <div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+      
+
+
+    
+        <section >
+            
+            <div class="block">
+ <h3 style="text-align: center;">Popularity on the Roommate Diversity Problem</h3>
+</div>
+<section>
+  <div style="height:100%; width:100%">
+    <img style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:80%;" 
+  width="auto" height="100%" data-src="images/intro-image.svg">
+    <h3 style="text-align: center;vertical-align: bottom;">Steven Ge and Toshiya Itoh</h3>
+    <div style="text-align: center; vertical-align: bottom;" id="coverpage-bottom">Tokyo Institute of Technology<br>Department of Mathematical and Computing Science</div>
+  </div>
+</section>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Content</h3>
+<section>
+<ul>
+<li>
+<p>Preliminaries</p>
+<ul>
+<li>Roommate Diversity Problem
+<ul>
+<li>Anecdote</li>
+<li>Problem Statement</li>
+<li>Dichotomous Preferences</li>
+</ul>
+<!-- - Di-/trichotomous Preferences -->
+<!-- - Existing Results -->
+</li>
+<li>Popularity</li>
+</ul>
+</li>
+<li>
+<p>Results</p>
+<ul>
+<li>Result Summary<!-- - Definition -->
+<!-- - Stable Roommates Problem -->
+</li>
+<li>Room Size 2</li>
+<li>Hardness
+<ul>
+<li>Exact Cover by 3-Sets Problem</li>
+</ul>
+<!-- - Base Construction -->
+<ul>
+<li>Strict Popularity</li>
+</ul>
+<!-- - Mixed Popularity -->
+<!-- - Popularity -->
+</li>
+</ul>
+</li>
+<li>
+<p>Future Work</p>
+</li>
+</ul>
+</section>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Roommate Diversity Problem$^{\text{[1]}}$</h3>
+<!-- ----------------------------------roommate diversity problem description---------------------------- -->
+  <!-- graph 1 -->
+  <section class="graph-section" id="graph1">
+  <h5>Andecdote</h5>
+    <div style="width: 100%;">
+      <div style="width: 49%; float: left;font-size: 0.65em;"> 
+        <ul>
+          <li data-fragment-index="0" class="fragment">International class</br>
+            <ul>
+              <li data-fragment-index="2" id="redstud" class="fragment">Japanese students</li>
+              <li data-fragment-index="3" id="bluestud" class="fragment">International students</li>
+            </ul>
+          </li>
+          <li data-fragment-index="6"  class="fragment">Groups of constant size $s$
+            <ul>
+              <li data-fragment-index="7" class="fragment">$s=3$</li>
+            </ul>
+          </li>
+          <li data-fragment-index="9" class="fragment">Preference only depends on $\frac{\#\text{Japanese students in group}}{s}$
+            <ul>
+              <li data-fragment-index="11" class="fragment"><span style="color:red">$k$</span> does not speak nor wants to practice English
+              <ul>
+                <li data-fragment-index="12" class="fragment">$1 \succ$<span style="color:red">$_k$</span> $\frac{2}{3}$ $\succ$<span style="color:red">$_k$</span> $\frac{1}{3}$</li>
+              </ul>
+              </li>
+              <li data-fragment-index="15" class="fragment"><span style="color:blue">$a$</span> does not speak, but wants to practice Japanese
+              <ul>
+                <li data-fragment-index="16" class="fragment">$\frac{1}{3}$ $\succ$<span style="color:blue">$_a$</span> $\frac{2}{3}$ $\sim$<span style="color:blue">$_a$</span> $0$</li>
+              </ul></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div data-fragment-index="1" style="margin-left: 50%;width:50%" id="graph1-cy" class="fragment graph"></div>
+      <div data-fragment-index="4" id="graph12-cy" class="fragment"></div>
+      <div data-fragment-index="5" id="graph13-cy" class="fragment"></div>
+      <div data-fragment-index="8" id="graph14-cy" class="fragment"></div>
+      <div data-fragment-index="10" id="graph15-cy" class="fragment"></div>
+      <div data-fragment-index="13" id="graph16-cy" class="fragment"></div>
+      <div data-fragment-index="14" id="graph17-cy" class="fragment"></div>
+      <div data-fragment-index="17" id="graph18-cy" class="fragment"></div>
+    </div>
+  </section>
+  <section class="graph-section">
+  <h5>Problem Statement</h5>
+    <div style="width: 100%;">
+      <div style="width: 49%; float: left;font-size: 0.65em;"> 
+        <ul>
+          <li class="fragment">Agents</br>
+            <ul>
+              <li class="fragment">Set of Red Agents <span style="color:red">$R$</span></li>
+              <li class="fragment">Set of Blue Agents <span style="color:blue">$B$</span></li>
+            </ul>
+          </li>
+          <li class="fragment">Room size $s$
+            <ul>
+              <li class="fragment">$s=3$</li>
+            </ul>
+          </li>
+          <li class="fragment">Preference only depends on $\frac{\#\text{red agents in room}}{s}$
+            <ul>
+              <li class="fragment">
+                $a \in \color{red}{R} \color{black}\cup \color{blue}{B}$
+              </li>
+              <li class="fragment">
+                $\succsim_{a}$ Complete transitive weak order over $D = \{\frac{j}{s}| j \in [0,s]\}$
+              </li>
+            </ul>
+          </li>
+          <li class="fragment">Game $G = ($<span style="color:red">$R$</span>$,$<span style="color:blue">$B$</span>$,s, (\succsim_a)_{a \in }$<span style="color:red">$_R$</span>$_\cup$<span style="color:blue">$_B$</span>$)$</li>
+        </ul>
+      </div>
+      <div style="margin-left: 50%;width:50%" id="graph2-cy" class="graph">
+        <img style="position:relative; top: -0.5em; left: -0.1em; width:100%; height:100%; max-width:100%!important; max-height:100%!important" data-src="images/graph1.svg">
+      </div>
+    </div>
+  </section>
+  <section class="graph-section">
+  <h5>Dichotomous Preferences</h5>
+    <div style="width: 100%;">
+      <div style="width: 49%; float: left;font-size: 0.65em;"> 
+        <ul>
+          <li>Agents</br>
+            <ul>
+              <li>Set of Red Agents <span style="color:red">$R$</span></li>
+              <li>Set of Blue Agents <span style="color:blue">$B$</span></li>
+            </ul>
+          </li>
+          <li>Room size $s$
+            <ul>
+              <li>$s=3$</li>
+            </ul>
+          </li>
+          <li>Preference only depends on $\frac{\#\text{red agents in room}}{s}$
+            <ul>
+              <li>
+                $a \in \color{red}{R} \color{black}\cup \color{blue}{B}$
+              </li>
+              <li>
+                $\succsim_{a}$ Complete transitive weak order over $D = \{\frac{j}{s}| j \in [0,s]\}$
+              </li>
+            </ul>
+          </li>
+          <li>Game $G = ($<span style="color:red">$R$</span>$,$<span style="color:blue">$B$</span>$,s, (\succsim_a)_{a \in }$<span style="color:red">$_R$</span>$_\cup$<span style="color:blue">$_B$</span>$)$</li>
+          <li class="fragment">Preference of agent $a \in \color{red}{R} \color{black}\cup \color{blue}{B}$ is dichotomous
+            <ul>
+              <li class="fragment">
+                $D$ can be partitioned into $D_a^+$ and $D_a^-$
+                <ul>
+                  <li class="fragment">
+                    $a$ ''<b>likes</b>'' the fractions in $D_a^+$
+                  </li>
+                  <li class="fragment">
+                    $a$ ''<b>hates</b>'' the fractions in $D_a^-$
+                  </li>
+                  <li class="fragment">
+                    E.g. <span class="fragment"><span style="border-width:2px; border-style:solid; border-color:green; padding: 0.2em;">$\frac{1}{3}$ </span>$\succ$<span style="color:blue">$_a$</span> <span style="border-width:2px; border-style:solid; border-color:red; padding: 0.2em;">$\frac{2}{3}$ $\sim$<span style="color:blue">$_a$</span> $0$</span></span>
+                    <p></p>
+                    <ul>
+                      <li class="fragment"><span style="border-width:2px; border-style:solid; border-color:green; padding: 0em;">$D^+_{\color{blue}a}$</span>$=\{\frac{1}{3}\}$</li>
+                      <li class="fragment"><span style="border-width:2px; border-style:solid; border-color:red; padding: 0em;">$D^-_{\color{blue}a}$</span>$=\{\frac{2}{3}, 0\}$</li>
+                    </ul>
+                  </li>
+                  <!-- <li class="fragment">
+                    For any $f_1^+, f_2^+ \in D_a^+$, we have $f_1^+ \sim_a f_2^+$
+                  </li>
+                  <li class="fragment">
+                    For any $f_1^-, f_2^- \in D_a^-$, we have $f_1^- \sim_a f_2^-$
+                  </li>
+                  <li class="fragment">
+                    For any $f^+ \in D_a^+$, $f^- \in D_a^-$, we have $f^+ \succ_a f^-$
+                  </li> -->
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- <li class="fragment">Preference of agent $a \in \color{red}{R} \color{black}\cup \color{blue}{B}$ is trichotomous
+            <ul>
+              <li class="fragment">
+                $D$ can be partitioned into $D_a^+$, $D_a^n$ and $D_a^-$
+                <ul>
+                  <li class="fragment">
+                    $D_a^+ \implies$ 😁
+                  </li>
+                  <li class="fragment">
+                    $D_a^n \implies$ 😐
+                  </li>
+                  <li class="fragment">
+                    $D_a^- \implies$ 😠
+                  </li> -->
+                  <!-- <li class="fragment">
+                    For any $f_1^+, f_2^+ \in D_a^+$, we have $f_1^+ \sim_a f_2^+$
+                  </li>
+                  <li class="fragment">
+                    For any $f_1^n, f_2^n \in D_a^n$, we have $f_1^n \sim_a f_2^n$
+                  </li>
+                  <li class="fragment">
+                    For any $f_1^-, f_2^- \in D_a^-$, we have $f_1^- \sim_a f_2^-$
+                  </li>
+                  <li class="fragment">
+                    For any $f^+ \in D_a^+$, $f^n \in D_a^n$, we have $f^+ \succ_a f^n$
+                  </li>
+                  <li class="fragment">
+                    For any $f^n \in D_a^n$, $f^- \in D_a^-$, we have $f^n \succ_a f^-$
+                  </li> -->
+                <!-- </ul>
+              </li>
+            </ul>
+          </li> -->
+        </ul>
+      </div>
+      <div style="margin-left: 50%;width:50%" id="graph2-cy" class="graph">
+        <img style="position:relative; top: -0.5em; left: -0.1em; width:100%; height:100%; max-width:100%!important; max-height:100%!important" data-src="images/graph1.svg">
+      </div>
+    </div>
+  </section>
+  <!-- <section class="graph-section">
+    <h5>Existing Results</h5>
+    <div style="width: 100%;">
+      <div style="font-size:0.7em">
+        <table class="ta1" cellspacing="0" cellpadding="0" border="0">
+          <tbody>
+              <tr class="ro1">
+                  <td style="text-align:left;width:20%" class="Default">&nbsp;</td>
+                  <td style="text-align:left;width:20%" class="ce4"><p><b>Complexity Class, Room Size = 2</b></p></td>
+                  <td style="text-align:left;width:20%" class="ce4"><p><b>Complexity Class, Room Size > 2</b></p></td>
+                  <td style="text-align:left;width:20%" class="ce4"><p><b>Parameterized Complexity Class</b></p></td>
+              </tr>
+              <tr style="" class="ro1">
+                  <td style="text-align:left;" class="ce1">
+                      <p>Core Stability</p>
+                  </td>
+                  <td style="text-align:left;color:green" class="ce2">
+                      <p>P</p>
+                  </td>
+                  <td style="text-align:left;color:red" class="ce2">
+                      <p>NP-Complete</br>$~$</p>
+                  </td>
+                  <td style="text-align:left;color:grey" class="ce2">
+                      <p>?</p>
+                  </td>
+              </tr>
+              <tr style="" class="ro1">
+                  <td style="text-align:left;" class="ce2">
+                      <p>Exchange Stability</p>
+                  </td>
+                  <td style="text-align:left;color:grey" class="ce2">
+                      <p>p</p>
+                  </td>
+                  <td style="text-align:left;color:red" class="ce2">
+                      <p>Co-NP-Hard</p>
+                  </td>
+                  <td style="text-align:left;color:red" class="ce2">
+                      <p>Co-NP-Hard</p>
+                  </td>
+              </tr>
+              <tr style="" class="ro1">
+                  <td style="text-align:left;" class="ce2">
+                      <p>Pareto Optimality</p>
+                  </td>
+                  <td style="text-align:left;color:green" class="ce2">
+                      <p>P</p>
+                  </td>
+                  <td style="text-align:left;color:green" class="ce2">
+                      <p>P</p>
+                  </td>
+                  <td style="text-align:left;color:green" class="ce2">
+                      <p>P</p>
+                  </td>
+              </tr>
+              <tr style="" class="ro1">
+                  <td style="text-align:left;" class="ce2">
+                      <p>Envy-Free</p>
+                  </td>
+                  <td style="text-align:left;color:green" class="ce2">
+                      <p>?</p>
+                  </td>
+                  <td style="text-align:left;color:green" class="ce2">
+                      <p>P</p>
+                  </td>
+                  <td style="text-align:left;color:green" class="ce2">
+                      <p>P</p>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+        <p>$^*$Search problem is <span style="color:red">NP-Hard</span> for Room Size > 2.</p></br>
+        <h3 class="fragment" style="text-align:center">
+          Our <span style="color:green">NEW</span> results!
+        </h3>
+      </div>
+    </div>
+  </section> -->
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Popularity$^{\text{[2]}}$</h3>
+<!-- -----------------------------------graph 3------------------------------------- -->
+  <section class="graph-section" id="graph3">
+  <!-- <h5>Definition</h5> -->
+    <div style="width: 100%;">
+      <div style="width: 49%; float: left;font-size: 0.65em;"> 
+        <ul>
+          <li data-fragment-index="0" class="fragment">Outcomes</br>
+            <ul>
+              <li data-fragment-index="1" class="fragment">$\pi$</li>
+              <li data-fragment-index="5" class="fragment">$\pi'$</li>
+            </ul>
+          </li>
+          <li data-fragment-index="13" class="fragment">$\pi$ is more popular than $\pi'$
+            <ul>
+              <li>(Strictly) More $\vee$ than $\wedge$</li>
+            </ul>
+          </li>
+        </ul>
+        <p></p>
+        <br>
+        <br>
+        <ul>
+          <li data-fragment-index="14" class="fragment">$\pi$ is popular
+            <ul>
+              <li data-fragment-index="15" class="fragment">No other outcome $\pi'$ is more popular than $\pi$</li>
+            </ul>
+          </li>
+          <p></p>
+          <li data-fragment-index="16" class="fragment">$\pi$ is strictly popular
+            <ul>
+              <li data-fragment-index="17" class="fragment">$\pi$ is more popular than any other outcome $\pi'$</li>
+              <li data-fragment-index="18" class="fragment">$\pi$ is the only popular outcome</li>
+            </ul>
+          </li>
+          <p></p>
+          <li data-fragment-index="19" class="fragment">$p$ is mixed popular
+            <ul>
+              <li data-fragment-index="20" class="fragment">$p$ is a probability distribution over all possible outcomes</li>
+              <li data-fragment-index="21" class="fragment">$p$ is expected to be more popular than any other probability distribution</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div data-fragment-index="2" style="margin-left: 50%;width:50%" id="graph3-cy" class="fragment graph"></div>
+      <div data-fragment-index="3" id="graph32-cy" class="fragment"></div>
+      <div data-fragment-index="4" id="graph33-cy" class="fragment"></div>
+      <div data-fragment-index="6" id="graph34-cy" class="fragment"></div>
+      <div data-fragment-index="7" id="graph35-cy" class="fragment"></div>
+      <div data-fragment-index="8" id="graph36-cy" class="fragment"></div>
+      <div data-fragment-index="9" id="graph37-cy" class="fragment"></div>
+      <div data-fragment-index="10" id="graph38-cy" class="fragment"></div>
+      <div data-fragment-index="11" id="graph39-cy" class="fragment"></div>
+      <div data-fragment-index="12" id="graph310-cy" class="fragment"></div>
+    </div>
+  </section>
+  <!-- <section class="graph-section" id="graph3">
+  <h5>Stable Roommates Problem</h5>
+    <div style="width: 100%;">
+    </div>
+  </section> -->
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Results Summary</h3>
+<!-- <section>
+   <table style="font-size:0.5em">
+    <tr>
+      <th>Setting</th>
+      <th>Results</th>
+      <th>Proceedings</th>
+      <th style="color:white">Future Work</th>
+    </tr>
+    <tr id="resultroomsize2">
+      <td data-fragment-index="0" class="fragment">Popularity<span data-fragment-index="1" class="fragment">,<br>Room size $2$</span></td>
+      <td>
+        <ul>
+          <li data-fragment-index="2" class="fragment"><b>P</b></li>
+          <li data-fragment-index="3" class="fragment">Popular outcome is <b>GUARANTEED</b> to exist</li>
+          <li data-fragment-index="4" class="fragment">Popular outcome computable in polynomial time</li>
+        </ul>
+      </td>
+      <td data-fragment-index="5" class="fragment"><b>Section 3</b></td>
+      <td style="color:white"></td>
+    </tr>
+    <tr  id="resultstrictpop">
+      <td data-fragment-index="6" class="fragment">Strict Popularity<span data-fragment-index="7" class="fragment">,<br>dichotomous preferences</span><span data-fragment-index="8" class="fragment">,<br>room size $\geq 3$</span></td>
+      <td>
+        <ul>
+          <li data-fragment-index="9" class="fragment"><b>co-NP-hard</b></li>
+        </ul>
+      </td>
+      <td data-fragment-index="10" class="fragment"><b>Section 4</b></td>
+      <td>
+        <ul>
+          <li style="color:white"><b>Completeness<b></li>
+          <li style="color:white"><b>Strict Preferences<b></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td data-fragment-index="11" class="fragment">Mixed Popularity<span data-fragment-index="12" class="fragment">,<br>dichotomous preferences</span><span data-fragment-index="13" class="fragment">,<br>room size $\geq 3$</span></td>
+      <td>
+        <ul>
+          <li data-fragment-index="14" class="fragment"><b>P</b></li>
+          <li data-fragment-index="15" class="fragment">Mixed Popular outcome is <b>GUARANTEED</b> to exist</li>
+          <li data-fragment-index="16" class="fragment">Mixed Popular outcome <b>CANNOT</b> be computed in polynomial time, unless P=NP</li>
+        </ul>
+      </td>
+      <td data-fragment-index="17" class="fragment"><b>Section 5</b></td>
+      <td>
+        <ul>
+          <li style="color:white"><b>Strict Preferences<b></li>
+          <li style="color:white"><b>(Parameterized Complexity)<b></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td data-fragment-index="18" class="fragment">Popularity<span data-fragment-index="19" class="fragment">,<br>trichotomous preferences</span><span data-fragment-index="20" class="fragment">,<br>room size $\geq 3$</span></td>
+      <td>
+        <ul>
+          <li data-fragment-index="21" class="fragment"><b>co-NP-hard</b></li>
+        </ul>
+      </td>
+      <td data-fragment-index="22" class="fragment"><b>Section 6</b></td>
+      <td>
+        <ul>
+          <li style="color:white"><b>Completeness<b></li>
+          <li style="color:white"><b>Dichotomous Preferences<b></li>
+          <li style="color:white"><b>Strict Preferences<b></li>
+          <li style="color:white"><b>Parameterized Complexity<b></li>
+        </ul>
+      </td>
+    </tr>
+  </table> 
+  <div data-fragment-index="23" id="result1" class="fragment"></div>
+  <div data-fragment-index="24" id="result2" class="fragment"></div>
+</section> -->
+<section>
+   <table style="font-size:0.5em">
+    <tr>
+      <th>Setting</th>
+      <th>Room size</th>
+      <th>Preferences</th>
+      <th>Results</th>
+      <th>Proceedings</th>
+      <th style="color:white">Future Work</th>
+    </tr>
+    <tr>
+      <td data-fragment-index="0" class="fragment">Popularity</td>
+      <td data-fragment-index="0" class="fragment">$2$</td>
+      <td data-fragment-index="0" class="fragment">Unrestricted</td>
+      <td>
+        <ul style="color:green">
+          <li data-fragment-index="0" class="fragment"><b>P</b></li>
+          <li data-fragment-index="0" class="fragment">Popular outcome is <b>GUARANTEED</b> to exist</li>
+          <li data-fragment-index="0" class="fragment">Popular outcome computable in polynomial time</li>
+        </ul>
+      </td>
+      <td data-fragment-index="0" class="fragment"><b>Section 3</b></td>
+      <td style="color:white"></td>
+    </tr>
+    <tr>
+      <td data-fragment-index="0" class="fragment">Strict Popularity<span data-fragment-index="0" class="fragment"></td>
+      <td data-fragment-index="0" class="fragment">$\geq 3$</td>
+      <td data-fragment-index="0" class="fragment">Dichotomous preferences</td>
+      <td>
+        <ul style="color:red">
+          <li data-fragment-index="0" class="fragment"><b>co-NP-hard</b></li>
+        </ul>
+      </td>
+      <td data-fragment-index="0" class="fragment"><b>Section 4</b></td>
+      <td>
+        <ul>
+          <li style="color:white"><b>Completeness<b></li>
+          <li style="color:white"><b>Strict Preferences<b></li>
+        </ul>
+      </td>
+    </tr>
+    <tr id="resultmixpop">
+      <td data-fragment-index="0" class="fragment">Mixed Popularity</td>
+      <td data-fragment-index="0" class="fragment">$\geq 3$</td>
+      <td data-fragment-index="0" class="fragment">Dichotomous preferences</td>
+      <td>
+        <ul style="color:green">
+          <li data-fragment-index="0" class="fragment"><b>P</b></li>
+          <li data-fragment-index="0" class="fragment">Mixed Popular outcome is <b>GUARANTEED</b> to exist</li>
+          <li style="color:red" data-fragment-index="0" class="fragment">Mixed Popular outcome <b>CANNOT</b> be computed in polynomial time, unless P=NP</li>
+        </ul>
+      </td>
+      <td data-fragment-index="0" class="fragment"><b>Section 5</b></td>
+      <td>
+        <ul>
+          <li style="color:white"><b>Strict Preferences<b></li>
+          <li style="color:white"><b>(Parameterized Complexity)<b></li>
+        </ul>
+      </td>
+    </tr>
+    <tr id="resultpop">
+      <td data-fragment-index="0" class="fragment">Popularity</td>
+      <td data-fragment-index="0" class="fragment">$\geq 3$</td>
+      <td data-fragment-index="0" class="fragment">Trichotomous preferences</td>
+      <td>
+        <ul style="color:red">
+          <li data-fragment-index="0" class="fragment"><b>co-NP-hard</b></li>
+        </ul>
+      </td>
+      <td data-fragment-index="0" class="fragment"><b>Section 6</b></td>
+      <td>
+        <ul>
+          <li style="color:white"><b>Completeness<b></li>
+          <li style="color:white"><b>Dichotomous Preferences<b></li>
+          <li style="color:white"><b>Strict Preferences<b></li>
+          <li style="color:white"><b>Parameterized Complexity<b></li>
+        </ul>
+      </td>
+    </tr>
+  </table> 
+  <div data-fragment-index="1" id="result" class="fragment"></div>
+  <!-- <div data-fragment-index="2" id="result2" class="fragment"></div> -->
+</section>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Room Size 2</h3>
+<!-- -----------------------------------graph 4------------------------------------- -->
+<section class="graph-section" id="graph4">
+  <div style="width: 100%;">
+    <div style="width: 49%; float: left;font-size: 0.65em;"> 
+      <ul>
+        <li data-fragment-index="0" class="fragment">Game $G = ($<span style="color:red">$R$</span>$,$<span style="color:blue">$B$</span>$,2, (\succsim_a)_{a \in }$<span style="color:red">$_R$</span>$_\cup$<span style="color:blue">$_B$</span>$)$</br>
+          <ul>
+            <li data-fragment-index="1" class="fragment">$s=2$</li>
+          </ul>
+        </li>
+        <!-- <li data-fragment-index="3"  class="fragment">3 possible room types
+          <ul>
+            <li data-fragment-index="4" class="fragment">2 <span style="color:blue">blue</span> agents</li>
+            <li data-fragment-index="5" class="fragment">2 <span style="color:red">red</span> agents</li>
+            <li data-fragment-index="6" class="fragment">Mixed room</li>
+          </ul>
+        </li> -->
+        <li data-fragment-index="7" class="fragment">3 possible preference types
+          <ul>
+            <li data-fragment-index="8" class="fragment">Prefers to be paired with <b>OWN</b> color</li>
+            <li data-fragment-index="9" class="fragment">Prefers to be paired with <b>OTHER</b> color</li>
+            <li data-fragment-index="10" class="fragment"><b>Indifferent</b></li>
+          </ul>
+        </li>
+        <li data-fragment-index="11" class="fragment">Weighted complete graph $G' = (\color{red}R\color{black}\cup\color{blue}B\color{black}, E, w)$
+          <ul>
+            <!-- <span data-fragment-index="14" class="fragment"> -->
+              <!-- <div style="width: 100%; overflow: hidden;"> -->
+                <li data-fragment-index="14" class="fragment" style="float: left;">
+                $w(x,y) = \begin{cases}
+                  ~\\
+                  ~ \\
+                  ~ \\
+                \end{cases}$
+                </li>
+                <div style="display:flow-root">
+                  <span data-fragment-index="16" class="fragment">$\small 2~~~~ \{x,y\} \text{ liked by both } x \mathbf{\text{ AND }} y$</span><br>
+                  <span data-fragment-index="17" class="fragment">$\small 1~~~~ \{x,y\} \text{ liked by both } x \mathbf{\text{ XOR }} y$</span><br>
+                  <span data-fragment-index="18" class="fragment">$\small 0~~~~ \{x,y\} \text{ disliked by both } x \mathbf{\text{ AND }} y$</span>
+                </div><br>
+              <!-- </div> -->
+            <!-- </span> -->
+            <li data-fragment-index="19" class="fragment">E.g. $\{\color{blue}a\color{black},\color{blue}b\color{black}\}$
+              <ul>
+                <li data-fragment-index="21" class="fragment">$0 \succ_{\color{blue}a} \frac{1}{2}$</li>
+                <li data-fragment-index="22" class="fragment">$0 \prec_{\color{blue}b} \frac{1}{2}$</li>
+                <li data-fragment-index="23" class="fragment">$w(\color{blue}a\color{black},\color{blue}b\color{black}) = 1$</li>
+                <br>
+                <li data-fragment-index="24" class="fragment">$0 \succ_{\color{blue}a} \frac{1}{2}$</li>
+                <li data-fragment-index="25" class="fragment">$0 \sim_{\color{blue}b} \frac{1}{2}$</li>
+                <li data-fragment-index="26" class="fragment">$w(\color{blue}a\color{black},\color{blue}b\color{black}) = 2$</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li style="font-size:0.97em" data-fragment-index="27" class="fragment">Maximum weight perfect matching $M$ of $G'$ is popular!
+          <ul>
+            <li data-fragment-index="28" class="fragment">$M$ can be found in <b style="color:green">polynomial</b> time</li>
+          </ul>
+        </li>
+        <br>
+        <li style="font-size:0.97em" data-fragment-index="29" class="fragment">Popularity on Stable Roommates Problem (room size 2)
+        <ul>
+          <li data-fragment-index="30" class="fragment">More general problem (unrestricted preferences)</li>
+          <li data-fragment-index="31" class="fragment" style="color:red">NP-hard</li>
+        </ul>
+        </li>
+      </ul>
+    </div>
+    <div data-fragment-index="2" style="margin-left: 50%;width:50%" id="graph4-cy" class="fragment graph"></div>
+    <div data-fragment-index="12" id="graph42-cy" class="fragment"></div>
+    <!-- <div data-fragment-index="13" id="graph43-cy" class="fragment"></div> -->
+    <div data-fragment-index="20" id="graph44-cy" class="fragment"></div>
+  </div>
+</section>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Hardness</h3>
+<section>
+  <h5>Exact Cover by 3-Sets Problem$^{\text{[3]}}$</h5>
+    <div style="width: 49%; float: left;font-size: 0.65em;"> 
+      <ul>
+        <li data-fragment-index="1" class="fragment">
+          Exact 3-set Cover (X3C)
+        <ul>
+          <li data-fragment-index="2" class="fragment">
+            Universe $X = \{1, \dots, m\}$
+          </li>
+          <li data-fragment-index="4" class="fragment">
+            3-sets $C = \{C_1, \dots, C_q\}$
+          </li>
+          <ul>
+            <li data-fragment-index="5" class="fragment">
+              $C_i \subseteq X$
+            </li>
+            <li data-fragment-index="6" class="fragment">
+              $|C_i| = 3$
+            </li>
+          </ul>
+          <li data-fragment-index="18" class="fragment">
+            Does there exist a set $S \subseteq C$ of 3-sets that partitions $X$?
+          </li>
+          <ul>
+            <!-- <li data-fragment-index="19" class="fragment">
+              Any element of the universe $X$ is contained in exactly 1 set of $S$.
+            </li> -->
+            <li data-fragment-index="20" class="fragment">
+              E.g. {<span style="color:rgba(240, 186, 152, 1)" class="colored-text fragment" data-fragment-index="8">$C_1$</span>, <span style="color:rgba(228, 46, 235, 1)" class="colored-text fragment" data-fragment-index="10">$C_2$</span>, <span style="color:rgba(108, 62, 31, 1)" class="colored-text fragment" data-fragment-index="14"> $C_4$</span>} is <span style="color:red">NOT</span> a solution.
+            </li>
+            <li data-fragment-index="22" class="fragment">
+              E.g. {<span style="color:rgba(228, 46, 235, 1)" class="colored-text fragment" data-fragment-index="10">$C_2$</span>, <span style="color:rgba(14, 233, 158, 1)" class="colored-text fragment" data-fragment-index="16">$C_5$</span>} <span style="color:green">IS</span> a solution.
+            </li>
+          </ul>
+          <li data-fragment-index="24" class="fragment">
+           X3C instance $I = (X,C)$.
+          </li>
+          <li data-fragment-index="25" class="fragment">
+           Exact 3-set Cover problem is NP-complete
+          </li>
+        </ul>
+      </ul>
+    </div>
+    <div style="margin-left: 50%;width:50%; height:8em" id="graph1-cy_x3c"  data-fragment-index="3" class="fragment graph fade-in">
+    </div>
+    <div data-fragment-index="3" style="transform:scale(0.9); transform-origin: top; margin-left: 60%;" class="fragment">
+      <p>
+        $X = \{1,2,3,4,5,6\}$
+      </p>
+      <div id="x3c1" class="fragment" data-fragment-index="7">
+        <div style="width:10%;float: left;">
+          $C = \left\{\begin{array}{l}
+                  ~ \\
+                  ~ \\
+                  ~ \\
+                  ~ \\
+                  ~ \\
+            \end{array}
+            \right.$
+        </div>
+        <div style="width:70%;float: left;">
+          <ul style="margin-left:2.5em;list-style-type:none">
+            <li><span style="color:rgba(240, 186, 152, 1)" class="colored-text fragment" data-fragment-index="8">$C_1 = \{1,2,3\}$</span></li>
+            <li><span style="color:rgba(228, 46, 235, 1)" class="colored-text fragment" data-fragment-index="10">$C_2 = \{2,3,4\}$</span></li>
+            <li><span style="color:rgba(12, 40, 40, 1)" class="colored-text fragment" data-fragment-index="12">$C_3 = \{1,2,5\}$</span></li>
+            <li><span style="color:rgba(108, 62, 31, 1)" class="colored-text fragment" data-fragment-index="14"> $C_4 = \{2,5,6\}$</span></li>
+            <li><span style="color:rgba(14, 233, 158, 1)" class="colored-text fragment" data-fragment-index="16">$C_5 = \{1,5,6\}$</span></li>
+          </ul>
+        </div>
+        <div style="width:20%;float: left;">
+          $\left.\begin{array}{l}
+                ~ \\
+                ~ \\
+                ~ \\
+                ~ \\
+                ~ \\
+          \end{array}
+          \right\}$
+        </div>
+      </div>
+    </div>
+    <div id="graph2-cy_x3c"  data-fragment-index="9" class="fragment"></div>
+    <div id="graph3-cy_x3c"  data-fragment-index="11" class="fragment"></div>
+    <div id="graph4-cy_x3c"  data-fragment-index="13" class="fragment"></div>
+    <div id="graph5-cy_x3c"  data-fragment-index="15" class="fragment"></div>
+    <div id="graph6-cy_x3c"  data-fragment-index="17" class="fragment"></div>
+    <div id="graph7-cy_x3c"  data-fragment-index="21" class="fragment"></div>
+    <div id="graph8-cy_x3c"  data-fragment-index="23" class="fragment"></div>
+</section>
+<section class="graph-section" id="graph6">
+  <h5>Strict Popularity</h5>
+  <div style="width: 100%;">
+    <div style="width: 49%; float: left;font-size: 0.65em;"> 
+      <b data-fragment-index="0" class="fragment">X3C Instance $I = (X, C)$</b>
+      <ul>
+          <li data-fragment-index="1" class="fragment">$\small X = \{1,2,3,4,5,6\}$</li>
+          <li data-fragment-index="2" class="fragment">$\small C = \{\{1,2,3\}, \{2,3,4\}, \{4,5,6\}\}$</br>$\small ~~~= \{C_1,C_2,C_3\}$</li>
+      </ul><br>
+      <b data-fragment-index="3" class="fragment" style="font-size:0.99em">Roommate Diversity Game $G = ($<span style="color:red">$R$</span>$,$<span style="color:blue">$B$</span>$,s, (\succsim_a)_{a \in }$<span style="color:red">$_R$</span>$_\cup$<span style="color:blue">$_B$</span>$)$</b>
+      <ul>
+        <li data-fragment-index="4" class="fragment" style="font-size: 0.8em;">Set $s = 5(q + 1) + 1 + m$</li>
+        <li data-fragment-index="5" class="fragment" style="font-size: 0.8em;">For each $i \in X$, create red set agent $\color{red}r_i$</li>
+        <li data-fragment-index="7" class="fragment" style="font-size: 0.8em;">For each $C_j \in C$, create the sets of agents:
+          <ul>
+            <li id="strictpop1" data-fragment-index="8" class="fragment"><span style="color:red" style="font-size: 0.8em;">Red</span> Redundant Agents $R_j^{red} = \{r_j^1, \dots, r_j^{5j-2}\}$</li>
+            <li data-fragment-index="10" class="fragment"><span style="color:blue" style="font-size: 0.8em;">Blue</span> Filling Agents $B_j^{fill} = \{b_j^1, \dots, b_j^{s-(5j-2)-3}\}$</li>
+            <li data-fragment-index="12" class="fragment"><span style="color:blue" style="font-size: 0.8em;">Blue</span> Additional Agents $B_j^{add} = \{\tilde{b}_j^1, \tilde{b}_j^2, \tilde{b}_j^3\}$</li>
+          </ul>
+        </li>
+        <li id="strictpop2" data-fragment-index="14" class="fragment" style="font-size: 0.8em;"><span style="color:blue" >Blue</span> Evening Agents $B^{even}$
+          <!-- <ul>
+            <li data-fragment-index="15" class="fragment" style="font-size: 0.8em;">Ensures that the total number of agents is a multiple of $s$</li>
+          </ul> -->
+        </li>
+        <li data-fragment-index="17" class="fragment" style="font-size: 0.8em;"><span style="color:red">Red</span> Monolithic Agents $R^{mon} = \{r_{mon}^1, \dots, r_{mon}^{5(q+1)+1}\}$</li>
+        <li data-fragment-index="19" class="fragment" style="font-size: 0.8em;"><span style="color:blue">Blue</span> Monolithic Agents $B^{mon}= \{b_{mon}^1, \dots, b_{mon}^{s-5(q+1)-1}\}$</li>
+        <li data-fragment-index="21" class="fragment" style="font-size: 0.8em;">An agent $a$ has dichotomous preferences
+          <ul>
+            <!-- <li style="font-size:0.7em" data-fragment-index="22" class="fragment">Likes being in a room with a fraction <b>related</b> to $C_j$ which $a$ ''belongs'' to</li> -->
+          </ul>
+        </li>
+      </ul>
+      <br>
+      <ul>
+        <li style="font-size:0.8em" data-fragment-index="29" class="fragment">Monolithic Outcome $\pi_{mon}$</li>
+        <ul>
+          <li style="font-size:0.8em" data-fragment-index="30" class="fragment">Unique</li>
+          <li style="font-size:0.8em" data-fragment-index="31" class="fragment">Exists regardless of $I$ having a solution</li>
+          <li style="font-size:0.8em" data-fragment-index="32" class="fragment">Each agent $a$ in a room with fraction in $D_a^+$</li>
+        </ul>
+        <li style="font-size:0.8em" data-fragment-index="35" class="fragment">Reduced Outcome $\pi_{S}$</li>
+        <ul>
+          <li style="font-size:0.8em" data-fragment-index="36" class="fragment">$S \subseteq C$ is a solution of $I$</li>
+          <li style="font-size:0.8em" data-fragment-index="37" class="fragment">Exists if and only if $I$ has a solution</li>
+          <li style="font-size:0.8em" data-fragment-index="38" class="fragment">Each agent $a$ in a room with fraction in $D_a^+$</li>
+        </ul>
+        <li style="font-size:0.8em" data-fragment-index="41" class="fragment">$\pi_{mon}$ and $\pi_S$ are the <b>ONLY</b> popular outcomes of $G$</li><br>
+        <!-- <li style="font-size:0.8em" data-fragment-index="43" class="fragment">$I$ has <b>a</b> solution<span data-fragment-index="44" class="fragment">$\implies$</span><span data-fragment-index="45" class="fragment">$G$ has more than 1 popular outcome</span></li> -->
+        <li style="font-size:0.8em" data-fragment-index="46" class="fragment">$I$ has <b>no</b> solution<span data-fragment-index="47" class="fragment">$\iff$</span><span data-fragment-index="48" class="fragment">$G$ has a <b>strictly popular</b> outcome</span></li>
+      </ul>
+    </div>
+    <div data-fragment-index="6" style="margin-left: 50%;width:70%" id="graph6-cy" class="fragment graph">
+    </div>
+    <div data-fragment-index="9" id="graph62-cy" class="fragment"></div>
+    <div data-fragment-index="11" id="graph63-cy" class="fragment"></div>
+    <div data-fragment-index="13" id="graph64-cy" class="fragment"></div>
+    <div data-fragment-index="16" id="graph65-cy" class="fragment"></div>
+    <div data-fragment-index="18" id="graph66-cy" class="fragment"></div>
+    <div data-fragment-index="20" id="graph67-cy" class="fragment"></div>
+    <div data-fragment-index="33" id="graph68-cy" class="fragment"></div>
+    <div data-fragment-index="39" id="graph69-cy" class="fragment"></div>
+  </div>
+  <div data-fragment-index="40" class="fragment" style="margin-left: 50%;width:50%;text-align: center;font-size:0.8em">$\pi_S$, where $S = \{C_1,C_3\}$</div>
+  <div data-fragment-index="34" class="fragment" style="margin-left: 50%;width:50%;text-align: center;margin-top: -1em"><span data-fragment-index="39" class="fragment fade-out">$\pi_{mon}$</span></div>
+</section>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Future Work</h3>
+<section>
+   <table style="font-size:0.5em">
+    <tr>
+      <th>Setting</th>
+      <th>Room size</th>
+      <th>Preferences</th>
+      <th>Results</th>
+      <th>Proceedings</th>
+      <th style="color:white">Future Work</th>
+    </tr>
+    <tr>
+      <td>Popularity</td>
+      <td>$2$</td>
+      <td>Unrestricted</td>
+      <td>
+        <ul style="color:green">
+          <li><b>P</b></li>
+          <li>Popular outcome is <b>GUARANTEED</b> to exist</li>
+          <li>Popular outcome computable in polynomial time</li>
+        </ul>
+      </td>
+      <td><b>Section 3</b></td>
+      <td style="color:white"></td>
+    </tr>
+    <tr>
+      <td>Strict Popularity<span></td>
+      <td>$\geq 3$</td>
+      <td>Dichotomous preferences</td>
+      <td>
+        <ul style="color:red">
+          <li><b>co-NP-hard</b></li>
+        </ul>
+      </td>
+      <td><b>Section 4</b></td>
+      <td>
+        <ul>
+          <li style="color:white"><b>Completeness<b></li>
+          <li style="color:white"><b>Strict Preferences<b></li>
+        </ul>
+      </td>
+    </tr>
+    <tr style="opacity:0.1">
+      <td>Mixed Popularity</td>
+      <td>$\geq 3$</td>
+      <td>Dichotomous preferences</td>
+      <td>
+        <ul style="color:green">
+          <li><b>P</b></li>
+          <li>Mixed Popular outcome is <b>GUARANTEED</b> to exist</li>
+          <li style="color:red">Mixed Popular outcome <b>CANNOT</b> be computed in polynomial time, unless P=NP</li>
+        </ul>
+      </td>
+      <td><b>Section 5</b></td>
+      <td>
+        <ul>
+          <li style="color:white"><b>Strict Preferences<b></li>
+          <li style="color:white"><b>(Parameterized Complexity)<b></li>
+        </ul>
+      </td>
+    </tr>
+    <tr style="opacity:0.1">
+      <td>Popularity</td>
+      <td>$\geq 3$</td>
+      <td>Trichotomous preferences</td>
+      <td>
+        <ul style="color:red">
+          <li><b>co-NP-hard</b></li>
+        </ul>
+      </td>
+      <td><b>Section 6</b></td>
+      <td>
+        <ul>
+          <li style="color:white"><b>Completeness<b></li>
+          <li style="color:white"><b>Dichotomous Preferences<b></li>
+          <li style="color:white"><b>Strict Preferences<b></li>
+          <li style="color:white"><b>Parameterized Complexity<b></li>
+        </ul>
+      </td>
+    </tr>
+  </table> 
+</section>
+<section>
+  <table style="font-size:0.5em">
+   <tr>
+     <th>Setting</th>
+     <th>Room size</th>
+     <th>Preferences</th>
+     <th>Results</th>
+     <th>Proceedings</th>
+     <th>Future Work</th>
+   </tr>
+   <tr>
+     <td>Popularity</td>
+     <td>$2$</td>
+     <td>Unrestricted</td>
+     <td>
+       <ul style="color:green">
+         <li><b>P</b></li>
+         <li>Popular outcome is <b>GUARANTEED</b> to exist</li>
+         <li>Popular outcome computable in polynomial time</li>
+       </ul>
+     </td>
+     <td><b>Section 3</b></td>
+     <td style="color:white"></td>
+   </tr>
+   <tr>
+     <td>Strict Popularity<span></td>
+     <td>$\geq 3$</td>
+     <td>Dichotomous preferences</td>
+     <td>
+       <ul style="color:red">
+         <li><b>co-NP-hard</b></li>
+       </ul>
+     </td>
+     <td><b>Section 4</b></td>
+     <td>
+      <ul>
+        <li data-fragment-index="2" class="fragment" style="color:gray"><b>Completeness<b></li>
+        <li data-fragment-index="4" class="fragment" style="color:gray"><b>Strict Preferences<b></li>
+      </ul>
+     </td>
+   </tr>
+   <tr id="resultmixpop">
+     <td>Mixed Popularity</td>
+     <td>$\geq 3$</td>
+     <td>Dichotomous preferences</td>
+     <td>
+       <ul style="color:green">
+         <li><b>P</b></li>
+         <li>Mixed Popular outcome is <b>GUARANTEED</b> to exist</li>
+         <li style="color:red">Mixed Popular outcome <b>CANNOT</b> be computed in polynomial time, unless P=NP</li>
+       </ul>
+     </td>
+     <td><b>Section 5</b></td>
+     <td>
+      <ul>
+        <li data-fragment-index="4" class="fragment" style="color:gray"><b>Strict Preferences<b></li>
+        <li data-fragment-index="5" class="fragment" style="color:gray"><b>Parameterized Complexity<b></li>
+      </ul>
+     </td>
+   </tr>
+   <tr id="resultpop">
+     <td>Popularity</td>
+     <td>$\geq 3$</td>
+     <td>Trichotomous preferences</td>
+     <td>
+       <ul style="color:red">
+         <li><b>co-NP-hard</b></li>
+       </ul>
+     </td>
+     <td><b>Section 6</b></td>
+     <td>
+      <ul>
+        <li data-fragment-index="2" class="fragment" style="color:gray"><b>Completeness<b></li>
+        <li data-fragment-index="3" class="fragment" style="color:gray"><b>Dichotomous Preferences<b></li>
+        <li data-fragment-index="4" class="fragment" style="color:gray"><b>Strict Preferences<b></li>
+        <li data-fragment-index="5" class="fragment" style="color:gray"><b>Parameterized Complexity<b></li>
+      </ul>
+     </td>
+   </tr>
+ </table> 
+</section>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Bibliography</h3>
+<section>
+  <table style="font-size:0.75em">
+    <tr>
+      <td>[1]</td>
+      <td>Boehmer, N., Elkind, E.: Stable Roommate Problem with Diversity Preferences. In: Proceedings of the Twenty-Ninth International Joint Conference on Artificial Intelligence. IJCAI’20 (2021). https://doi.org/10.24963/ijcai.2020/14</td>
+    </tr>
+    <tr>
+      <td>[2]</td>
+      <td>Gärdenfors, P.: Match making: Assignments based on bilateral preferences. Systems Research and Behavioral Science 20, 166–173 (1975). https://doi.org/10.1002/bs.3830200304, https://onlinelibrary.wiley.com/doi/10.1002/bs.3830200304</td>
+    </tr>
+    <tr>
+      <td>[3]</td>
+      <td>M.R. Garey; D.S. Johnson (1979). Computers and Intractability: A Guide to the Theory of NP-Completeness. New York: W.H. Freeman. ISBN 0-7167-1045-5. This book is a classic, developing the theory, then cataloguing many NP-Complete problems.</td>
+    </tr>
+  </table>
+</section>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>The end</h3>
+<section>
+  <h2 style="text-align: center; margin-top:12%">Thank you for your attention!<h2>
+</section>
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/jquery-3.5.1.min.js"></script>
+<!-- cytoscape packages base -->
+<script src="packages/cytoscape-3.18.0/package/dist/cytoscape.umd.js"></script>
+<script src="lib/js/cytoscape/cytoscape-svg.js"></script>
+<script src="lib/js/cytoscape/cytoscape-cose-bilkent.js"></script>
+<script src="lib/js/vivus/vivus.js"></script>
+<!-- cytoscape packages extra -->
+<script src="packages/layout-base-2.0.0/package/layout-base.js"></script>
+<script src="packages/avsdf-base-1.0.0/package/avsdf-base.js"></script>
+<script src="packages/cytoscape-avsdf-1.0.0/package/cytoscape-avsdf.js"></script>
+<script src="packages/cytoscape-layers-2.1.0/package/dist/cytoscapelayers.umd.production.min.js"></script>
+<script src="packages/cytoscape-bubblesets-3.0.0/package/build/index.umd.js"></script>
+<!-- Graphs -->
+<script src="lib/graphs/highlight_functions.js"></script>
+<script src="lib/graphs/auxiliary_functions.js"></script>
+<script src="lib/graphs/cytoscape-compound-drag-and-drop.js"></script>
+<script src="lib/graphs/data/graph_data.js"></script>
+<script src="lib/graphs/data/graph3_data.js"></script>
+<script src="lib/graphs/data/graph5_data.js"></script>
+<script src="lib/graphs/data/graph6_data.js"></script>
+<script src="lib/graphs/graphs/graph1.js"></script>
+<script src="lib/graphs/graphs/graph3.js"></script>
+<script src="lib/graphs/graphs/graph4.js"></script>
+<script src="lib/graphs/graphs/graph_x3c.js"></script>
+<script src="lib/graphs/graphs/graph5.js"></script>
+<script src="lib/graphs/graphs/graph6.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+  Reveal.configure({
+    keyboard: {
+    40: 'next',
+    38: 'prev'
+    },
+    math: {
+      mathjax: 'js/MathJax.js',
+      config: 'TeX-AMS_HTML-full',  // See http://docs.mathjax.org/en/latest/config-files.html
+      "fast-preview": {disabled:true},
+      tex2jax: {
+        preview: "none",
+        inlineMath: [["$","$"],["\\(","\\)"]]
+      }
+    },
+    dependencies: [
+      { src: 'js/math.js', async: false }
+    ],
+    // try to keep graphs working properly
+    width: '100%',
+    height: '100%',
+    margin: 0,
+    minScale: 1,
+    maxScale: 1,
+    slideNumber: true,
+    controls: true
+  });
+
+  var sectionEventHandler = async function(event) {
+    if(event.fragment.id === undefined) {
+
+    }
+    else if (event.fragment.id == 'result') {
+      for (opacity = 1; opacity > 0.1; opacity = opacity - 0.05) {           
+          document.getElementById("resultmixpop").style.opacity  = opacity;
+          document.getElementById("resultpop").style.opacity = opacity;
+          await sleep(1);                      
+      }
+    }
+    else if (event.fragment.id == 'graph34-cy') {
+      Reveal.nextFragment();
+      await sleep(250);
+      Reveal.nextFragment();
+    }
+    else if (event.fragment.id == 'strictpop1') {
+      for (let i = 0; i < 5; i++){
+        Reveal.nextFragment();
+        await sleep(250);
+      }
+    }
+    else if (event.fragment.id == 'strictpop2') {
+      for (let i = 0; i < 5; i++){
+        Reveal.nextFragment();
+        await sleep(250);
+      }
+    }
+    else if (event.fragment.id == 'x3c1') { 
+      for (let i = 0; i < 10; i++){
+        Reveal.nextFragment();
+        await sleep(200);
+      }
+    }
+  }
+
+  Reveal.addEventListener('fragmentshown', sectionEventHandler);
+
+  var sectionEventHandlerBack = function(event) {
+    if(event.fragment.id === undefined) {
+
+    }
+    else if (event.fragment.id == 'result') {
+      document.getElementById("resultmixpop").style.opacity = "1";
+      document.getElementById("resultpop").style.opacity = "1";
+
+    }
+  }
+
+  Reveal.addEventListener('fragmenthidden', sectionEventHandlerBack);
+  })
+</script>
+            </section>
+    
+
+
+    </div>
+
+
+  </div>
+
+  <div class="line top"></div>
+  <div class="line bottom"></div>
+  <div class="line left"></div>
+  <div class="line right"></div>
+
+  <script src="libs/reveal.js/4.3.1/reveal.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/notes/notes.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/markdown/markdown.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/highlight/highlight.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/math/math.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/fullscreen/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/animate/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/animate/svg.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/Chart.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/d3/d3.v3.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/d3.patch.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/d3/queue.v1.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/d3/topojson.v1.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/anything/function-plot.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/customcontrols/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/embed-tweet/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/chart/chart.min.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/chart/plugin.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/verticator/verticator.js"></script>
+
+<script src="libs/reveal.js/4.3.1/plugin/zoom/zoom.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/search/search.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/menu/menu.js"></script>
+<script src="libs/reveal.js/4.3.1/plugin/chalkboard/plugin.js"></script>
+
+<!--	<script src="libs/reveal.js/4.3.1/plugin/audio-slideshow/plugin.js"></script>  -->
+<!--	<script src="libs/reveal.js/4.3.1/plugin/audio-slideshow/recorder.js"></script>-->
+<!--	<script src="libs/reveal.js/4.3.1/plugin/audio-slideshow/RecordRTC.js"></script>-->
+
+  
+
+<script>
+  const printPlugins = [
+      RevealNotes,
+      RevealHighlight,
+      RevealMath,
+      RevealAnimate,
+      RevealChalkboard, 
+			RevealEmbedTweet,
+			RevealChart,
+		];
+
+		const plugins =  [...printPlugins,
+		RevealZoom, 
+		RevealSearch, 
+				RevealMarkdown, 
+				RevealMenu, 
+				RevealFullscreen,
+				RevealAnything,
+				//RevealAudioSlideshow,
+				//RevealAudioRecorder,
+				RevealCustomControls, 
+				// poll
+				// question
+				// seminar
+				Verticator 
+				 ]
+
+
+		// Also available as an ES module, see:
+		// https://revealjs.com/initialization/
+		Reveal.initialize({
+			controls: true,
+      controlsTutorial: true,
+      controlsLayout: 'bottom-right',
+      controlsBackArrows: 'faded',
+      progress: true,
+      slideNumber: true,
+      //#showSlideNumber "all" "print" "speaker"
+      hash: true, //# hash: false,
+      //# respondToHashChanges: true,
+      //# history: false,
+      keyboard: true,
+      //#keyboardCondition: null,
+      overview: true,
+      center: false,
+      touch: true,
+      loop: false,
+      rtl: false,
+      //#navigationMode: 'default', linear grid
+      shuffle: false,
+      fragments: true,
+      fragmentInURL: false,
+      embedded: false,
+      help: true,
+      //#pause: true
+      showNotes: false,
+      autoPlayMedia: false, // TODO fix this to a nullable value
+      //#preloadIframes: null. true false
+      //#autoAnimate: true
+      //#autoAnimateMatcher: null,
+      //#autoAnimateEasing: 'ease',
+      //autoAnimateDuration: 1.0,
+      //#autoAnimateUnmatched: true
+      //#autoAnimateStyles: []
+      autoSlide: 0, // TODO fix this to a falseable value
+      autoSlideStoppable: true,
+      autoSlideMethod: '0',
+      defaultTiming: 120,
+      mouseWheel: false,
+      //#previewLinks: false
+      //#postMessage: true, // TODO : this can cause issues with the vscode api ???
+      //#postMessageEvents: false,
+      //#focusBodyOnPageVisibilityChange: true,
+      transition: 'fade',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      //#pdfMaxPagesPerSlide: Number.POSITIVE_INFINITY,
+      //#pdfSeparateFragments: true,
+      //#pdfPageHeightOffset: -1,
+      viewDistance: 3,
+      //#mobileViewDistance: 2,
+      display: 'block',
+      //#hideInactiveCursor: true,
+      //#hideCursorTime: 5000
+
+      // Parallax Background
+      parallaxBackgroundImage: '',
+      parallaxBackgroundSize: '',
+      parallaxBackgroundHorizontal: 0,
+      parallaxBackgroundVertical: 0,
+
+      //Presentation Size
+      width: 960,
+			height: 700,
+			margin: 0.04,
+      minScale: 0.2,
+      maxScale: 2,
+      disableLayout: false,
+
+      audio: {
+        prefix: 'audio/', // audio files are stored in the "audio" folder
+        suffix: '.ogg', // audio files have the ".ogg" ending
+        textToSpeechURL: null, // the URL to the text to speech converter
+        defaultNotes: false, // use slide notes as default for the text to speech converter
+        defaultText: false, // use slide text as default for the text to speech converter
+        advance: 0, // advance to next slide after given time in milliseconds after audio has played, use negative value to not advance
+        autoplay: false, // automatically start slideshow
+        defaultDuration: 5, // default duration in seconds if no audio is available
+        defaultAudios: true, // try to play audios with names such as audio/1.2.ogg
+        playerOpacity: 0.05, // opacity value of audio player if unfocused
+        playerStyle: 'position: fixed; bottom: 4px; left: 25%; width: 50%; height:75px; z-index: 33;', // style used for container of audio controls
+        startAtFragment: false, // when moving to a slide, start at the current fragment or at the start of the slide
+      },
+      
+      chalkboard: { // font-awesome.min.css must be available
+        //src: "chalkboard/chalkboard.json",
+        storage: "chalkboard-demo",
+      },
+      
+			customcontrols: {
+					controls: [
+      						{
+						  id: 'toggle-overview',
+						  title: 'Toggle overview (O)',
+						  icon: '<i class="fa fa-th"></i>',
+						  action: 'Reveal.toggleOverview();'
+						}
+						,
+      {
+        icon: '<i class="fa fa-pen-square"></i>',
+        title: 'Toggle chalkboard (B)',
+        action: 'RevealChalkboard.toggleChalkboard();'
+      },
+      {
+        icon: '<i class="fa fa-pen"></i>',
+        title: 'Toggle notes canvas (C)',
+        action: 'RevealChalkboard.toggleNotesCanvas();'
+      }
+      
+				]
+			},
+			chart: {
+					defaults: { 
+						color: 'lightgray', // color of labels
+						scale: { 
+							beginAtZero: true, 
+							ticks: { stepSize: 1 },
+							grid: { color: "lightgray" } , // color of grid lines
+						},
+					},
+					line: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ], "borderDash": [ [5,10], [0,0] ] }, 
+					bar: { backgroundColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+					pie: { backgroundColor: [ ["rgba(0,0,0,.8)" , "rgba(220,20,20,.8)", "rgba(20,220,20,.8)", "rgba(220,220,20,.8)", "rgba(20,20,220,.8)"] ]},
+					radar: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]}, 
+			},
+			math: {
+				mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+				config: 'TeX-AMS_HTML-full',
+				// pass other options into `MathJax.Hub.Config()`
+				TeX: { Macros: { RR: "{\\bf R}" } }
+				},
+				anything: [ 
+				{
+		className: "plot",
+		defaults: {width:500, height: 500, grid:true},
+		initialize: (function(container, options){ options.target = "#"+container.id; functionPlot(options) })
+	 },
+	 {
+		className: "chart",  
+		initialize: (function(container, options){ container.chart = new Chart(container.getContext("2d"), options);  })
+	 },
+	 {
+		className: "anything",
+		initialize: (function(container, options){ if (options && options.initialize) { options.initialize(container)} })
+	 },
+					],
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: (window.location.search.match(/print-pdf/gi) ? printPlugins : plugins ) 
+		});
+			
+
+
+	    // Change chalkboard theme : 
+		function changeTheme(input) {
+			var config = {};
+			config.theme = input.value;
+			Reveal.getPlugin("RevealChalkboard").configure(config);
+			input.blur();
+		}
+
+		// // Handle the message inside the webview
+        // window.addEventListener('message', event => {
+
+        //     const message = event.data; // The JSON data our extension sent
+
+        //     switch (message.command) {
+        //         case 'refactor':
+        //             Reveal.toggleHelp();
+        //     }
+        // });
+
+		if (window.location.search.match(/print-pdf-now/gi)) {
+      		setTimeout(() => {
+				window.print();
+			  }, 2500);
+			
+    }
+</script>
+
+</body>
+
+</html>
